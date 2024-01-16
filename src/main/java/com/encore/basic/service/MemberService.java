@@ -3,10 +3,7 @@ package com.encore.basic.service;
 import com.encore.basic.domain.Member;
 import com.encore.basic.domain.MemberRequestDto;
 import com.encore.basic.domain.MemberResponseDto;
-import com.encore.basic.repository.JdbcMemberRepository;
-import com.encore.basic.repository.MemberRepository;
-import com.encore.basic.repository.MemoryMemberRepository;
-import com.encore.basic.repository.SpringDataJpaMemberRepository;
+import com.encore.basic.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +19,8 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository; // 인터페이스로 다형성 구현
     @Autowired
-    public MemberService(SpringDataJpaMemberRepository springDataJpaMemberRepository) { // 다른 Repository를 사용하고 싶으면 매개변수만 그 Repository로 바꾸면 됨
-        this.memberRepository = springDataJpaMemberRepository;
+    public MemberService(MybatisMemberRepository mybatisMemberRepository) { // 다른 Repository를 사용하고 싶으면 매개변수만 그 Repository로 바꾸면 됨
+        this.memberRepository = mybatisMemberRepository;
     }
 
 
