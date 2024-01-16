@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 @Controller // @Controller를 통해 싱글톤 컴포넌트로 생성 -> 스프링 빈으로 등록
 //@RequiredArgsConstructor
 // 스프링 빈이란 스프링이 생성하고 관리하는 객체를 의미
@@ -64,9 +67,13 @@ public class MemberController {
 //    회원 상세 조회
     @GetMapping("/member/find")
     public String membersDetail(@RequestParam(value = "id") int id, Model model) {
-        MemberResponseDto memberResponseDto = memberService.findMember(id);
-        model.addAttribute("member", memberResponseDto);
-        return "member/member-detail";
+        try {
+            MemberResponseDto memberResponseDto = memberService.findMember(id);
+            model.addAttribute("member", memberResponseDto);
+            return "member/member-detail";
+        }catch (NoSuchElementException e) { // 예외 발생 시
+            return "member/404-error-page";
+        }
     }
 }
 

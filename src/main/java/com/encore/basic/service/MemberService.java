@@ -3,14 +3,18 @@ package com.encore.basic.service;
 import com.encore.basic.domain.Member;
 import com.encore.basic.domain.MemberRequestDto;
 import com.encore.basic.domain.MemberResponseDto;
+import com.encore.basic.repository.JdbcMemberRepository;
 import com.encore.basic.repository.MemberRepository;
 import com.encore.basic.repository.MemoryMemberRepository;
+import com.encore.basic.repository.SpringDataJpaMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service // @Service를 통해 싱글톤 컴포넌트로 생성 -> 스프링 빈으로 등록
 // 스프링 빈이란 스프링이 생성하고 관리하는 객체를 의미
@@ -18,15 +22,14 @@ import java.util.List;
 public class MemberService {
     private final MemberRepository memberRepository; // 인터페이스로 다형성 구현
     @Autowired
-    public MemberService(MemoryMemberRepository memoryMemberRepository) { // 다른 Repository를 사용하고 싶으면 매개변수만 그 Repository로 바꾸면 됨
-        this.memberRepository = memoryMemberRepository;
+    public MemberService(SpringDataJpaMemberRepository springDataJpaMemberRepository) { // 다른 Repository를 사용하고 싶으면 매개변수만 그 Repository로 바꾸면 됨
+        this.memberRepository = springDataJpaMemberRepository;
     }
 
-    static int total_id;
 
 //        List<Member> 리턴
     public List<MemberResponseDto> members() {
-        List<Member> members = memberRepository.members();
+        List<Member> members = memberRepository.findAll();
         List<MemberResponseDto> memberResponseDtos = new ArrayList<>();
         for(Member a : members) {
             MemberResponseDto memberResponseDto = new MemberResponseDto();
@@ -43,19 +46,16 @@ public class MemberService {
 //    Member 등록
 
     public void memberCreate(MemberRequestDto memberRequestDto) {
-        LocalDateTime now = LocalDateTime.now();
-        total_id += 1;
-        Member member = new Member(total_id,
+        Member member = new Member(
                                 memberRequestDto.getName(),
                                 memberRequestDto.getEmail(),
-                                memberRequestDto.getPassword(),
-                                now);
-        memberRepository.memberCreate(member);
+                                memberRequestDto.getPassword());
+        memberRepository.save(member);
     }
 
 //    id에 해당하는 member의 정보를 Dto에 저장
-    public MemberResponseDto findMember(int id) {
-        Member member = memberRepository.memberDetail(id);
+    public MemberResponseDto findMember(int id) throws NoSuchElementException{
+        Member member = memberRepository.findById(id).orElseThrow(NoSuchElementException::new);
         MemberResponseDto memberResponseDto = new MemberResponseDto();
         memberResponseDto.setId(member.getId());
         memberResponseDto.setName(member.getName());
