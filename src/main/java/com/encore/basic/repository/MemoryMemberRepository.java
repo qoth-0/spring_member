@@ -46,5 +46,10 @@ public class MemoryMemberRepository implements MemberRepository{
         return Optional.empty();
     }
 
+    @Override
+    public void delete(Member member) {
+
+    }
+
 
 }

@@ -22,7 +22,6 @@
                 email: document.getElementById("email").value,
                 password: document.getElementById("password").value
             }
-        
             try{
                 const response = await axios({
                     method: 'POST',
@@ -34,7 +33,6 @@
             }catch(e) {
                 console.log(e);
             }
-            
         }
     </script>
 </body>

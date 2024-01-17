@@ -12,3 +12,13 @@ public interface SpringDataJpaMemberRepository extends MemberRepository, JpaRepo
 }
 
 
+
+
+
+
+
+
+
+
+
+

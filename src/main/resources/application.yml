@@ -26,12 +26,18 @@ spring:
     generate-ddl: true
     hibernate:
 #      create옵션은 매번 table을 drop후 생성
-#      update욥션은 변경사항만 alter 적용
+#      update욥션은 변경사항만 alter 적용 - 컬럼
 #      validate는 실제 DB와의 차이만을 check
 #      실무에서는 update또는 validate사용
-      ddl-auto: create
+      ddl-auto: update
 #    jpa가 자동으로 쿼리를 실행할 때, 쿼리가 console창에 보여지도록
     show_sql: true
+#    mybatis의 mapper파일 경로 명시
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+
+
+
 #--- # 설정 구분
 #server:
 #  port: 8081

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,18 +20,22 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment 설정
     private int id;
 //    String은 DB의 varchar로 변환(기본길이 255)
+    @Setter
     private String name;
     @Column(nullable = false, length = 50) // Not null, 길이지정
     private String email;
+    @Setter
     private String password;
     @Setter
     @Column(name = "created_time") // name옵션 : DB의 컬럼명 별도 지정
+    @CreationTimestamp
     private LocalDateTime create_time;
+    @UpdateTimestamp
+    private LocalDateTime updatedTime;
     public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.create_time = LocalDateTime.now();
     }
 }
 
