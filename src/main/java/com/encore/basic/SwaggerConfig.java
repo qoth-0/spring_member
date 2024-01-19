@@ -23,6 +23,7 @@ public class SwaggerConfig {
                 .select() // 어떤 컨트롤러 또는 어떤 api를 Swagger 문서에 포함시킬지 선택
 //                 모든  RequestHandler들을 문서화 대상으로 선택한다는 설정
                 .apis(RequestHandlerSelectors.any())
+//                .paths(PathSelectors.any()) // 모든 컨트롤러의 path에 swagger 적용
                 // url 패턴 정의 (*: 직계, **: 손자까지)
                 .paths(PathSelectors.ant("/rest/**")) // Controller에서 설정한 /rest 포함 url
                 .build();
