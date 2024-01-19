@@ -152,4 +152,11 @@ public class HelloController {
         return "ok";
     }
 
+//    controller와 jsp의 조합
+    @GetMapping("/hello-servlet-jsp-get")
+    public String helloServletJspGet(Model model) {
+        model.addAttribute("myData", "jsp test data");
+        return "hello-jsp";
+    }
+
 }
