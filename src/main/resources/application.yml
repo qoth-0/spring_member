@@ -38,6 +38,12 @@ spring:
       ddl-auto: update
 #    jpa가 자동으로 쿼리를 실행할 때, 쿼리가 console창에 보여지도록
     show_sql: true
+#    springboot 2.4 이상에서는 기본적으로 PathPatternParser를 사용하고 있는데
+#    이는 이전 버전과 다른 경로매칭 규칙을 갖고있어, springfox와 같은 일부 라이브러리에서는 문제 발생
+#    url : localhost:8080/swagger-ui/
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 #    mybatis의 mapper파일 경로 명시
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml

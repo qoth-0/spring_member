@@ -34,8 +34,10 @@ dependencies {
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 //	jsp를 위한 라이브러리 추가
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-////	jstl문법 사용 시 의존성
+//	jstl문법 사용 시 의존성
 //	implementation 'javax.servlet:jstl'
+//	swagger 사용을 위한 의존성 추가
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 }
 // 테스트 라이브러리로 주로 JUnit 사용
 tasks.named('test') {
