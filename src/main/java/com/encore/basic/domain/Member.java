@@ -37,6 +37,12 @@ public class Member {
         this.email = email;
         this.password = password;
     }
+
+//    회원 정보 수정
+    public void updateMember(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 }
 
 

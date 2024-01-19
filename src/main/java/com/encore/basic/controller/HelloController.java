@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -129,6 +130,25 @@ public class HelloController {
     @ResponseBody
     public String jsonPostHandle3(@RequestBody Hello hello) { // 클래스에 받기
         System.out.println(hello);
+        return "ok";
+    }
+
+//    DispatcherServlet : 요청 정보를 담은 HttpServletRequest 객체 생성
+//    HttpServletRequest 객체를 주입해서 요청 내용을 꺼내서 사용 가능
+    @PostMapping("/http-servlet")
+    @ResponseBody
+    public String httpServletTest(HttpServletRequest req) {
+//        HttpServletRequest객체에서 header정보 추출
+        System.out.println(req.getContentType());
+        System.out.println(req.getMethod());
+//        session : 로그인(auth) 정보에서 필요한 정보값을 추출할 때 많이 사용
+        System.out.println(req.getSession());
+        System.out.println(req.getHeader("Accept"));
+
+//        HttpServletRequest객체에서 body정보 추출
+        System.out.println(req.getParameter("test1")); // form 태그로 보낸 데이터를 추출
+        System.out.println(req.getParameter("test2"));
+//        req.getReader()를 통해 BufferedReader로 받아 직접 파싱
         return "ok";
     }
 
