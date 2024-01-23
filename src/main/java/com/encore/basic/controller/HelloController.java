@@ -112,7 +112,7 @@ public class HelloController {
         Hello hello = new Hello(); // 객체를 만들어서 객체에 데이터 저장
         hello.setName(body.get("name"));
         hello.setEmail(body.get("email"));
-        hello.setPw(body.get("password"));
+        hello.setPassword(body.get("password"));
         return "ok";
     }
 
@@ -122,7 +122,7 @@ public class HelloController {
         Hello hello = new Hello();
         hello.setName(body.get("name").asText());
         hello.setEmail(body.get("email").asText());
-        hello.setPw(body.get("password").asText());
+        hello.setPassword(body.get("password").asText());
         return "ok";
     }
 
@@ -157,6 +157,15 @@ public class HelloController {
     public String helloServletJspGet(Model model) {
         model.addAttribute("myData", "jsp test data");
         return "hello-jsp";
+    }
+
+//
+    public void helloBuilderTest() {
+        Hello hello = Hello.builder()
+                .name("hong")
+                .email("naver.com")
+                .password("1234")
+                .build();
     }
 
 }
