@@ -22,14 +22,17 @@ public class Hello {
         this.password = myBuilder.password;
     }
 
+//    MyBuilder 객체 생성
     public static MyBuilder builder() {
         return new MyBuilder();
     }
+
     public static class MyBuilder{
         private String name;
         private String email;
         private String password;
 
+        // MyBuilder 객체의 name, email, password를 세팅하는 메소드
         public MyBuilder name(String name) {
             this.name = name;
             return this;
@@ -42,6 +45,7 @@ public class Hello {
             this.password = password;
             return this;
         }
+//        build : 엔티티에 각 메소드로 세팅된 MyBuilder를 적용
         public Hello build() {
             return new Hello(this);
         }
